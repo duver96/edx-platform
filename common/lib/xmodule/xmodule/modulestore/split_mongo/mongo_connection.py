@@ -434,11 +434,14 @@ class MongoConnection(object):
             tagger.measure("blocks", len(structure["blocks"]))
             self.structures.insert(structure_to_mongo(structure, course_context))
 
-    def get_course_index(self, key, ignore_case=False):
+    def get_course_index(self, key, ignore_case=False, branch=None):
         """
         Get the course_index from the persistence mechanism whose id is the given key
         """
+        query = {}
         with TIMER.timer("get_course_index", key):
+            if branch:
+                query['versions.{}'.format(branch)] = {'$exists': True}
             if ignore_case:
                 query = {
                     key_attr: re.compile(u'^{}$'.format(re.escape(getattr(key, key_attr))), re.IGNORECASE)

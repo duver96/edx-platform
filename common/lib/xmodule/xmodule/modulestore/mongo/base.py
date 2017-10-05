@@ -1010,13 +1010,29 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
                 if field in course['metadata']
             }
 
-        course_org_filter = kwargs.get('org')
-        query = {'_id.category': 'course'}
+        course_records = []
+        query = {}
+        query['_id.category'] = 'course'
+        course_keys = kwargs.get('course_keys')
 
-        if course_org_filter:
-            query['_id.org'] = course_org_filter
+        if course_keys:
+            for course_key in course_keys:
+                course_query = {
+                    '_id.{}'.format(value_attr): getattr(course_key, key_attr)
+                    for key_attr, value_attr in {'org': 'org', 'course': 'course', 'run': 'name'}.iteritems()
+                }
+                query.update(course_query)
+                course_summary = self.collection.find_one(query, {'metadata': True})
 
-        course_records = self.collection.find(query, {'metadata': True})
+                if course_summary:
+                    course_records.append(course_summary)
+        else:
+            course_org_filter = kwargs.get('org')
+
+            if course_org_filter:
+                query['_id.org'] = course_org_filter
+
+            course_records = self.collection.find(query, {'metadata': True})
 
         courses_summaries = []
         for course in course_records:
@@ -1028,6 +1044,7 @@ class MongoModuleStore(ModuleStoreDraftAndPublished, ModuleStoreWriteBase, Mongo
                 courses_summaries.append(
                     CourseSummary(locator, **course_summary)
                 )
+
         return courses_summaries
 
     @autoretry_read()
