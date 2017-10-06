@@ -236,7 +236,7 @@ def cert_info(user, course_overview, course_mode):
         dict: A dictionary with keys:
             'status': one of 'generating', 'downloadable', 'notpassing', 'processing', 'restricted'
             'show_download_url': bool
-            'certificate_message_viewable': bool -- if certificates are viewable
+            'show_certificate_available_date_message': bool -- if certificates are hidden
             'download_url': url, only present if show_download_url is True
             'show_disabled_download_button': bool -- true if state is 'generating'
             'show_survey_button': bool
@@ -363,7 +363,7 @@ def _cert_info(user, course_overview, cert_status, course_mode):  # pylint: disa
 
     default_info = {
         'status': default_status,
-        'certificate_message_viewable': False,
+        'show_certificate_available_date_message': True,
         'show_disabled_download_button': False,
         'show_download_url': False,
         'show_survey_button': False,
@@ -373,16 +373,23 @@ def _cert_info(user, course_overview, cert_status, course_mode):  # pylint: disa
     if cert_status is None:
         return default_info
 
-    is_hidden_status = cert_status['status'] in ('unavailable', 'processing', 'generating', 'notpassing', 'auditing')
-
-    if course_overview.certificates_display_behavior == 'early_no_info' and is_hidden_status:
-        return {}
-
     status = template_state.get(cert_status['status'], default_status)
+    is_hidden_status = status in ('unavailable', 'processing', 'generating', 'notpassing', 'auditing')
 
+    show_certificate_available_date_message = (
+        not certificates_viewable_for_course(course_overview) and
+        (status == 'generating' or status == 'downloadable') and
+        course_overview.certificate_available_date
+    )
+
+    if (
+        course_overview.certificates_display_behavior == 'early_no_info' and
+        is_hidden_status
+    ):
+        return default_info
     status_dict = {
         'status': status,
-        'certificate_message_viewable': certificates_viewable_for_course(course_overview),
+        'show_certificate_available_date_message': show_certificate_available_date_message,
         'show_download_url': status == 'downloadable',
         'show_disabled_download_button': status == 'generating',
         'mode': cert_status.get('mode', None),

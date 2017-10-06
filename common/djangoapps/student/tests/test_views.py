@@ -57,7 +57,7 @@ class TestStudentDashboardUnenrollments(SharedModuleStoreTestCase):
         return {
             'status': self.cert_status,
             'can_unenroll': self.cert_status not in DISABLE_UNENROLL_CERT_STATES,
-            'certificate_message_viewable': True,
+            'show_certificate_available_date_message': False,
             'grade': 100,
             'show_disabled_download_button': False,
             'show_download_url': False,
