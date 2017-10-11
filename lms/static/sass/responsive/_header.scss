@@ -211,6 +211,15 @@ $grid-breakpoints: (
               }
             }
 
+            &:focus {
+              outline: none;
+
+              .dropdown-item {
+                color: $gray-800;
+                background-color: $gray-300;
+              }
+            }
+
             &:not(:last-child) {
               .dropdown-item {
                 border-bottom: 1px solid $gray-200;
@@ -307,6 +316,13 @@ $grid-breakpoints: (
       -o-transition: .5s ease-in-out;
       transition: .5s ease-in-out;
       cursor: pointer;
+      outline: none;
+
+      &:focus {
+        span {
+          background: $gray-800;
+        }
+      }
 
       span {
         display: block;
