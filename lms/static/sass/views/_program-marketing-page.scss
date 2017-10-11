@@ -151,14 +151,14 @@
       }
     }
 
-    .grid-manual, .row{
+    .grid-manual, .row {
       @media (max-width: 767px){
         display: block;
       }
     }
 
-    .grid-manual{
-      .btn-start{
+    .grid-manual {
+      .btn-start {
         min-width: 300px;
         padding: 0.75rem 2rem;
         font-size: 1.25rem;
@@ -214,7 +214,7 @@
     }
   }
 
-  .courses-in-program .course-card .tbl-view .tbl-col:first-child{
+  .courses-in-program .course-card .tbl-view .tbl-col:first-child {
     width: 70% !important;
 
     @media (max-width: 768px) {
@@ -244,7 +244,7 @@
       font-size: 18px;
       text-decoration: underline;
 
-      a{
+      a {
         color: #005686;
       }
 
@@ -365,7 +365,7 @@
         }
       }
 
-      .btn-enroll-now{
+      .btn-enroll-now {
         width: 100% !important;
         max-width: 300px !important;
         min-height: 50px;
@@ -384,25 +384,25 @@
     }
   }
 
-  .copy-meta-mobile{
+  .copy-meta-mobile {
     font-size: 0.875rem;
     line-height: 1.6em;
   }
 
   //Helper Classes
-  .pull-left{
+  .pull-left {
     float: left !important;
   }
 
-  .pull-right{
+  .pull-right {
     float: right !important;
   }
 
-  .block{
+  .block {
     display: block;
   }
 
-  a{
+  a {
     text-decoration: none;
 
     &:hover {
@@ -410,16 +410,16 @@
       text-decoration: none;
     }
 
-    &:focus{
+    &:focus {
       text-decoration: none;
     }
   }
 
-  .no-padding{
+  .no-padding {
     padding: 0 !important;
   }
 
-  #success-message{
+  #success-message {
     padding: 0;
 
     .alert {
@@ -431,7 +431,7 @@
     }
   }
 
-  .window-wrap{
+  .window-wrap {
     background-color: transparent;
   }
 
@@ -449,20 +449,20 @@
     padding: 0 1rem;
   }
 
-  .show-user-menu{
+  .show-user-menu {
     display: block !important;
     right: -16px !important;
   }
 
-  .hidden-mobile{
+  .hidden-mobile {
     display: none;
   }
 
-  .visible-mobile{
+  .visible-mobile {
     display: block;
   }
 
-  .btn-success{
+  .btn-success {
     background-color: palette(success, text) !important;
     color: $white !important;
     border-color: palette(success, text);
@@ -472,7 +472,7 @@
     }
   }
 
-  .btn-block{
+  .btn-block {
     width: 100% !important;
   }
 
@@ -488,35 +488,40 @@
     padding: 0 1.25rem;
   }
 
-  h2{
+  h2 {
     font-size: 1.5rem;
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
     margin: 1.25rem 0;
     text-transform: none;
   }
 
-  h1, h2, h3, h4, h5, h6{
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   }
 
-  .col-centered{
+  .col-centered {
     float: none !important;
     margin-left: auto !important;
     margin-right: auto !important;
   }
 
-  .input-group{
+  .input-group {
     margin-bottom: 1.25rem;
   }
 
-  .input-lg{
+  .input-lg {
     line-height: 55px !important;
     height: 55px !important;
     padding: 0 1.25rem !important;
   }
 
-  .form-block{
-    label, input, select, button, textarea{
+  .form-block {
+    label, input, select, button, textarea {
       display: block;
       width: 100%;
       font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -528,38 +533,38 @@
         border-radius: 4px 4px 0 0;
         margin-bottom: 0 !important;
 
-        + .field-message{
+        + .field-message {
           border-radius: 0 0 4px 4px;
           width: 100%;
         }
       }
     }
 
-    input{
+    input {
       box-shadow: none;
       border: 1px solid palette(grayscale, back);
       border-radius: 4px;
       font-size: 1rem;
       width: 100%;
 
-      &:focus, &:active{
+      &:focus, &:active {
         box-shadow: none;
         border-color: palette(grayscale, base);
       }
     }
 
-    select{
+    select {
       -webkit-appearance: none;
       -moz-appearance: none;
       border-color: palette(grayscale, back);
       appearance: none;
 
-      &::-ms-expand{
+      &::-ms-expand {
         display: none;
       }
     }
 
-    textarea{
+    textarea {
       height: 280px;
       border-color: palette(grayscale, back);
       box-shadow: none;
@@ -567,29 +572,29 @@
       padding: 1rem;
     }
 
-    button{
+    button {
       margin-top: 2.5rem;
       padding: 1.25rem;
     }
   }
 
-  .list-bulleted{
-    li{
+  .list-bulleted {
+    li {
       margin-bottom: 0.2rem !important;
       padding-left: 0.5rem !important;
       line-height: 1.5rem;
       color: palette(grayscale, base);
 
-      .brand-link{
+      .brand-link {
         display: inline;
       }
     }
   }
 
-  .btn-enroll-mobile{
+  .btn-enroll-mobile {
     margin-bottom: 2rem;
 
-    .btn-enroll{
+    .btn-enroll {
       max-width: 95%;
       margin: auto;
       border-radius: 3px;
@@ -629,7 +634,7 @@
 
         &:hover,
         &.active,
-        &:focus{
+        &:focus {
           cursor: pointer;
         }
 
@@ -1031,7 +1036,7 @@
           font-size: 1em;
           margin-bottom: 0;
 
-          a{
+          a {
             font-weight: 600;
             text-decoration: underline;
           }
@@ -1066,33 +1071,33 @@
     width: 100%;
     display: block;
 
-    .pages{
+    .pages {
       width: calc(100% - 120px);
       text-align: right;
       display: inline-block;
       font-size: 14px;
     }
 
-    .controls{
+    .controls {
       text-align: center;
       display: inline-block;
       width: 115px;
 
-      a{
+      a {
         display: inline-block;
         width: 50px;
 
-        &:first-child{
+        &:first-child {
           border-right: 1px solid $light-gray2;
         }
 
-        .fa{
+        .fa {
           font-size: 1.75rem;
           color: $border-color;
         }
 
-        &.active{
-          .fa{
+        &.active {
+          .fa {
             color: palette(primary, dark);
           }
         }
@@ -1137,7 +1142,7 @@
       span {
         font-size: 1em !important;
 
-        + a{
+        + a {
           font-weight: 600;
           font-size: 1em !important;
           text-decoration: underline;
@@ -1219,17 +1224,17 @@
     }
   }
 
-  .data-table{
+  .data-table {
     @media (max-width: 767px){
       padding: 0 20px;
     }
 
-    .list-divided{
+    .list-divided {
       @media (min-width: 767px){
         padding: 0 12px !important;
       }
 
-      .item{
+      .item {
         margin-top: 0.625rem;
         line-height: 1.4em;
         padding: 15px 15px 19px 25px !important;
@@ -1243,7 +1248,7 @@
           margin: 0 !important;
         }
 
-        &:last-child{
+        &:last-child {
           border-bottom: 0 !important;
         }
       }
@@ -1288,7 +1293,7 @@
         }
       }
 
-      img{
+      img {
         height: auto;
         margin-left: 6px;
         width: 100%;
@@ -1385,7 +1390,7 @@
       }
     }
 
-    .modal-body{
+    .modal-body {
       overflow: hidden !important;
       position: relative !important;
       width: 100%;
@@ -1397,15 +1402,15 @@
         margin-left: 0 !important;
         margin-right: 0 !important;
 
-        .instructor-data{
+        .instructor-data {
           display: block;
 
-          .thumbnail{
+          .thumbnail {
             display: block;
             width: 100%;
             padding-bottom: 0;
 
-            img{
+            img {
               border-radius: 50%;
               border: 5px solid palette(grayscale, back);
               margin-bottom: 1rem;
@@ -1421,7 +1426,7 @@
             color: black;
             margin-bottom: 0;
 
-            span{
+            span {
               display: block;
               font-size: 1rem;
               line-height: 1.1rem;
@@ -1446,8 +1451,8 @@
         font-size: 1rem;
       }
 
-      .links{
-        a{
+      .links {
+        a {
           margin-right: 0;
           display: block;
           margin-bottom: 0.5rem;
@@ -1490,47 +1495,47 @@
       }
     }
 
-    .footer-main{
-      .footer-logo{
+    .footer-main {
+      .footer-logo {
         text-align: center;
       }
     }
 
-    .visible-mobile{
+    .visible-mobile {
       display: none;
     }
 
-    .hidden-mobile{
+    .hidden-mobile {
       display: block;
     }
 
-    .testimonial-main{
-      p{
+    .testimonial-main {
+      p {
         text-align: left;
       }
 
-      img{
+      img {
         margin-bottom: 0;
       }
     }
   }
 
   @media screen and (min-width: 48em){
-    .btn-enroll-mobile{
+    .btn-enroll-mobile {
       display: none;
     }
 
-    header.header-main{
+    header.header-main {
       .logo a img {
         height: 44px;
       }
 
-      .collapsed-button{
+      .collapsed-button {
         display: none;
       }
 
-      .nav-collapse{
-        ul{
+      .nav-collapse {
+        ul {
           display: block;
           transition: all .2s;
           position: relative;
@@ -1542,32 +1547,32 @@
           box-shadow: none;
           padding: 0;
 
-          li{
+          li {
             width: auto;
             text-align: left;
             line-height: 100px;
             padding: 0 0.5rem;
 
-            a{
-              &.btn-neutral{
+            a {
+              &.btn-neutral {
                 padding: 0.625rem 1.25rem;
               }
             }
 
-            &.user-account{
-              ul{
+            &.user-account {
+              ul {
                 position: absolute;
                 right: 1rem;
                 top: 100%;
                 width: 100%;
                 margin-top: -1.5rem;
 
-                li{
+                li {
                   display: block;
                   float: none;
                   line-height: normal;
 
-                  a{
+                  a {
                     padding: 0.5rem;
                     display: inline-block;
                   }
@@ -1579,17 +1584,17 @@
       }
     }
 
-    .footer-main{
-      .footer-logo{
+    .footer-main {
+      .footer-logo {
         text-align: left;
       }
 
-      .open-edx-logo{
-        ul{
-          li{
+      .open-edx-logo {
+        ul {
+          li {
             text-align: right;
 
-            img{
+            img {
               max-width: 80%;
             }
           }
@@ -1615,8 +1620,8 @@
         }
       }
 
-      &.hero-video{
-        background: rgba(0,0,0,0.6);
+      &.hero-video {
+        background: rgba(0, 0,0, 0.6);
 
         .hero-image {
           display: block;
@@ -1633,11 +1638,11 @@
         .grid-container {
           padding: 0 1rem;
 
-          .row{
+          .row {
             height: 22rem;
 
-            .description{
-              .data{
+            .description {
+              .data {
                 padding: 11.5% 2% 0 0;
 
                 h1{
@@ -1645,23 +1650,23 @@
                   font-size: 2.2rem;
                 }
 
-                p{
+                p {
                   color: $white;
                   font-size: 1.3rem;
                 }
               }
             }
 
-            .video{
+            .video {
               float: right;
               padding-left: 1.04167%;
               padding-right: 1.04167%;
 
-              .video-data{
+              .video-data {
                 line-height: 352px;
                 max-width: 95%;
 
-                img{
+                img {
                   border: 3px solid $white;
                   width: auto;
                 }
@@ -1670,7 +1675,7 @@
           }
         }
 
-        &.no-video .grid-container .row .description .data{
+        &.no-video .grid-container .row .description .data {
           margin: 0;
         }
       }
@@ -1682,19 +1687,19 @@
           margin-bottom: 0;
         }
 
-        .btn-enroll{
+        .btn-enroll {
           margin-top: 0;
         }
       }
 
       .description-container {
-        .expandable{
+        .expandable {
           max-height: 224px;
         }
       }
     }
 
-    .modal-custom{
+    .modal-custom {
       display:none;
       width: 540px;
       padding: 30px 30px;
@@ -1706,20 +1711,20 @@
         overflow: hidden;
       }
 
-      .modal-body{
+      .modal-body {
         .modal-header {
           display: table;
           width: 100%;
 
-          .instructor-data{
+          .instructor-data {
             display: table-row;
 
-            .thumbnail{
+            .thumbnail {
               display: table-cell;
               width: 25%;
               padding-bottom: 0;
 
-              img{
+              img {
                 margin-bottom: 0;
               }
             }
@@ -1732,8 +1737,8 @@
           }
         }
 
-        .links{
-          a{
+        .links {
+          a {
             margin-right: 1.5rem;
             display: inline-block;
             margin-bottom: 0;
@@ -1742,14 +1747,14 @@
       }
     }
 
-    .rtl .hero.hero-video .tint-dark .grid-container .row .description{
+    .rtl .hero.hero-video .tint-dark .grid-container .row .description {
       padding-right: 1.04167%;
     }
 
-    .course-card{
-      .title{
-        small{
-          > span{
+    .course-card {
+      .title {
+        small {
+          > span {
             font-size: 0.8rem !important;
           }
         }
@@ -1768,7 +1773,7 @@
       }
     }
 
-    .hero{
+    .hero {
       &.hero-video .grid-container .row .description .data h1 {
         font-size: 2.5rem;
       }
@@ -1780,10 +1785,10 @@
       }
     }
 
-    .course-card{
-      .title{
-        small{
-          > span{
+    .course-card {
+      .title {
+        small {
+          > span {
             font-size: 1rem !important;
           }
         }
@@ -1802,12 +1807,12 @@
   // For RTL
   .rtl {
     header {
-      &.header-main{
-        .list-inline li{
+      &.header-main {
+        .list-inline li {
           float: left;
         }
 
-        .nav-collapse .collapsed-button{
+        .nav-collapse .collapsed-button {
           left: 20px;
           right: auto;
         }
@@ -1815,7 +1820,7 @@
     }
 
     .hero.hero-video .grid-container .row {
-      .description{
+      .description {
         padding-right: 2%;
 
         .data {
@@ -1825,12 +1830,12 @@
         }
       }
 
-      .video{
+      .video {
         float: left;
       }
     }
 
-    .footer-main ul li:last-child{
+    .footer-main ul li:last-child {
       text-align: right;
     }
 
@@ -1892,7 +1897,7 @@
       right: 0.4rem;
     }
 
-    .course-card{
+    .course-card {
       display: inline-block;
       margin: 0 calc(0.5 * 2.6rem) 30px calc(0.5 * 1rem) !important;
       width: calc(50% - 22px);
@@ -1906,8 +1911,8 @@
         margin-right: 0 !important;
       }
 
-      .title{
-        a{
+      .title {
+        a {
           height: auto;
           max-height: 50px;
           overflow: hidden;
@@ -1916,16 +1921,16 @@
           text-decoration: underline;
         }
 
-        small{
+        small {
           margin-top: 10px;
 
-          > span{
+          > span {
             font-size: 0.9rem;
           }
         }
       }
 
-      p{
+      p {
         margin-bottom: 30px;
         min-height: 75px;
         max-height: 75px;
@@ -1936,7 +1941,7 @@
         right: 20px;
       }
 
-      .btn-enroll{
+      .btn-enroll {
         display: inline-block;
         background-color: $green !important;
         min-width: 220px;
@@ -1951,7 +1956,7 @@
     }
   }
 
-  img{
+  img {
     max-width: 100%;
   }
 
