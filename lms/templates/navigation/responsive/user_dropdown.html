@@ -1,0 +1,56 @@
+## mako
+<%page expression_filter="h"/>
+<%namespace name='static' file='static_content.html'/>
+
+## This template should not use the target student's details when masquerading, see TNL-4895
+<%
+self.real_user = getattr(user, 'real_user', user)
+%>
+
+<%!
+from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
+
+from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_image_urls_for_user
+%>
+
+<%
+    profile_image_url = get_profile_image_urls_for_user(self.real_user)['medium']
+    username = self.real_user.username
+%>
+
+
+<div class="nav-item nav-item-not-collapsible">
+    <a href="${reverse('dashboard')}" class="menu-title">
+        <img class="user-image-frame" src="${profile_image_url}" alt="">
+        <span class="sr-only">${_("Dashboard for:")}</span>
+        <span class="username">${username}</span>
+    </a>
+</div>
+<div class="nav-item" tabindex="-1">
+    <span class="fa fa-caret-down toggle-user-dropdown nav-item-not-collapsible" tabindex="0"></span>
+    <div class="dropdown-menu" tabindex="-1">
+        <a href="${reverse('dashboard')}"><div class="dropdown-item dropdown-nav-item">${_("Dashboard")}</div></a>
+        <a href="${reverse('account_settings')}"><div class="dropdown-item dropdown-nav-item">${_("Account")}</div></a>
+        <a href="${reverse('logout')}"><div class="dropdown-item dropdown-nav-item">${_("Sign Out")}</div></a>
+    </div>
+</div>
+<script>
+    $('.toggle-user-dropdown').click(function() {
+      const $dropdownMenu = $('.global-header .nav-item .dropdown-menu');
+      if ($dropdownMenu.is(':visible')) {
+        $dropdownMenu.hide();
+      } else {
+        $dropdownMenu.show();
+        $dropdownMenu.find('.dropdown-item')[0].focus();
+      }
+    });
+
+    // Ensure click away removes the dropdown
+    $(window).click(function(e) {
+      if (!$(e.target).is('.dropdown-item, .toggle-user-dropdown')){
+        $('.global-header .nav-item .dropdown-menu').hide();
+      }
+    })
+
+</script>
