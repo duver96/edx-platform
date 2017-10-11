@@ -9,7 +9,7 @@ from django.contrib.sites.models import Site
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
-from django.db.models import F, Min
+from django.db.models import F, Min, Q
 from django.db.utils import DatabaseError
 from django.utils.formats import dateformat, get_format
 import pytz
@@ -142,7 +142,7 @@ def _recurring_nudge_schedules_for_hour(site, target_hour, org_list, exclude_org
 
 
 def _gather_users_and_schedules_for_target_hour(target_hour, org_list, exclude_orgs):
-    beginning_of_day = target_hour.replace(hour=0, minute=0, second=0)
+    beginning_of_day = target_hour.replace(hour=0, minute=0, second=0, microsecond=0)
     users = User.objects.filter(
         courseenrollment__schedule__start__gte=beginning_of_day,
         courseenrollment__schedule__start__lt=beginning_of_day + datetime.timedelta(days=1),
@@ -206,7 +206,7 @@ def recurring_nudge_schedule_bin(
 
 
 def _recurring_nudge_schedules_for_bin(site, target_day, bin_num, org_list, exclude_orgs=False):
-    beginning_of_day = target_day.replace(hour=0, minute=0, second=0)
+    beginning_of_day = target_day.replace(hour=0, minute=0, second=0, microsecond=0)
     schedules = get_schedules_with_target_date_by_bin_and_orgs(
         schedule_date_field='start',
         target_date=beginning_of_day,
@@ -280,7 +280,7 @@ def _upgrade_reminder_schedule_send(site_id, msg_str):
 
 
 def _upgrade_reminder_schedules_for_bin(site, target_day, bin_num, org_list, exclude_orgs=False):
-    beginning_of_day = target_day.replace(hour=0, minute=0, second=0)
+    beginning_of_day = target_day.replace(hour=0, minute=0, second=0, microsecond=0)
 
     schedules = get_schedules_with_target_date_by_bin_and_orgs(
         schedule_date_field='upgrade_deadline',
@@ -336,6 +336,7 @@ def get_schedules_with_target_date_by_bin_and_orgs(schedule_date_field, target_d
     exclude_orgs -- boolean indicating whether the returned Schedules should exclude (True) the course_orgs in org_list
                     or strictly include (False) them (default: False)
     """
+    today = datetime.datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
     schedule_date_equals_target_date_filter = {
         'courseenrollment__schedule__{}__gte'.format(schedule_date_field): target_date,
         'courseenrollment__schedule__{}__lt'.format(schedule_date_field): target_date + datetime.timedelta(days=1),
@@ -359,6 +360,7 @@ def get_schedules_with_target_date_by_bin_and_orgs(schedule_date_field, target_d
     ).prefetch_related(
         'enrollment__course__modes'
     ).filter(
+        Q(enrollment__course__end__isnull=True) | Q(enrollment__course__end__gte=today),
         enrollment__user__in=users,
         enrollment__is_active=True,
         **schedule_date_equals_target_date_filter
