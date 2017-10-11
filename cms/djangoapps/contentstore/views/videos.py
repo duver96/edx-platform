@@ -29,7 +29,6 @@ from edxval.api import (
     get_videos_for_course,
     remove_transcript_preferences,
     remove_video_for_course,
-    update_transcript_credentials_state_for_org,
     update_video_image,
     update_video_status
 )
@@ -39,7 +38,6 @@ from contentstore.models import VideoUploadConfig
 from contentstore.utils import reverse_course_url
 from edxmako.shortcuts import render_to_response
 from openedx.core.djangoapps.video_config.models import VideoTranscriptEnabledFlag
-from openedx.core.djangoapps.video_pipeline.api import update_3rd_party_transcription_service_credentials
 from openedx.core.djangoapps.waffle_utils import WaffleSwitchNamespace
 from util.json_request import JsonResponse, expect_json
 
@@ -50,7 +48,6 @@ __all__ = [
     'video_encodings_download',
     'video_images_handler',
     'transcript_preferences_handler',
-    'transcript_credentials_handler'
 ]
 
 LOGGER = logging.getLogger(__name__)
@@ -380,57 +377,6 @@ def transcript_preferences_handler(request, course_key_string):
     elif request.method == 'DELETE':
         remove_transcript_preferences(course_key_string)
         return JsonResponse()
-
-
-@expect_json
-@login_required
-@require_POST
-def transcript_credentials_handler(request, course_key_string):
-    """
-    JSON view handler to update the transcript organization credentials.
-
-    Arguments:
-        request: WSGI request object
-        course_key_string: A course identifier to extract the org.
-
-    Returns: A success response or 404 if transcript feature is not enabled
-    """
-    course_key = CourseKey.from_string(course_key_string)
-    if not VideoTranscriptEnabledFlag.feature_enabled(course_key):
-        return HttpResponseNotFound()
-
-    response_payload = {}
-    # Validate providers.
-    valid_providers = get_3rd_party_transcription_plans().keys()
-    provider = request.json.get('provider')
-    if provider not in valid_providers:
-        response_payload['message'] = 'Invalid Provider "{provider}".'.format(provider=provider)
-        return JsonResponse(response_payload, status=400)
-
-    # Validate the received attributes with required ones.
-    required_attrs = ['api_key']
-    # In case of Cielo24, `username` is required.
-    # In case of 3Play Media, `api_secret_key` is required.
-    required_attrs.append('api_secret_key' if provider == TranscriptProvider.THREE_PLAY_MEDIA else 'username')
-    missing = [attr for attr in required_attrs if attr in request.json]
-    if missing:
-        response_payload['message'] = u'{missing} must be specified.'.format(missing=' and '.join(missing))
-        return JsonResponse(response_payload, status=400)
-
-    # Extract and send the validated credentials to edx-video-pipeline.
-    credentials_payload = {attr: request.json[attr] for attr in required_attrs + ['org', 'provider']}
-    is_updated, content = update_3rd_party_transcription_service_credentials(**credentials_payload)
-
-    # Cache the credentials' existence in edx-val.
-    update_transcript_credentials_state_for_org(org=course_key.org, provider=provider, exists=is_updated)
-
-    # Send appropriate response based on whether the credentials update was a success in edx-video-pipeline
-    status = 200 if is_updated else 400
-    response_payload.update({
-        'success': is_updated,
-        'message': content,
-    })
-    return JsonResponse(response_payload, status=status)
 
 
 @login_required
