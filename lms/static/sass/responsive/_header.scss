@@ -46,10 +46,15 @@ $grid-breakpoints: (
   .header-logo {
     display: inline;
 
-    .logo {
-      margin: $baseline/2 0 0 $baseline;
-      height: 40px;
+    a {
+      display: block;
       float: left;
+      margin: $baseline/2 0 0 $baseline;
+
+      .logo {
+        height: 40px;
+        float: left;
+      }
     }
 
     .course-header {
@@ -102,13 +107,13 @@ $grid-breakpoints: (
 
           a {
             color: $gray-600;
-            padding: $baseline/2 $baseline*1.25 $baseline*1.3;
+            padding: $baseline/2 $baseline*1.25 $baseline*0.75;
             font-weight: 600;
             display: inline-block;
             margin-bottom: -1*$baseline/2;
 
             &.active {
-              border-bottom: 4px solid $gray-700;
+              border-bottom: 2px solid $gray-700;
 
               &:hover {
                 border-bottom-color: $gray-700;
@@ -117,7 +122,7 @@ $grid-breakpoints: (
 
             &:hover {
               cursor: pointer;
-              border-bottom: 4px solid $blue;
+              border-bottom: 2px solid $blue;
             }
           }
         }
@@ -125,7 +130,7 @@ $grid-breakpoints: (
 
       .secondary {
         float: right;
-        margin: $baseline $baseline 0 0;
+        margin: $baseline*0.6 $baseline 0 0;
 
         // All navigation items
         .nav-item {
@@ -225,16 +230,15 @@ $grid-breakpoints: (
   @media (max-width: 768px) {
     // Styles for the transition from open to collapsed
     .nav-links {
-      height: 0; // Hide all elements when collapsed
-      //-webkit-transition: max-height 2.0s;
-      //-moz-transition: max-height 2.0s;
-      //transition: max-height 2.0s;
+      //height: 0; // Hide all elements when collapsed
+      display: none;
       -webkit-transition: height 2.0s;
       -moz-transition: height 2.0s;
       transition: height 2.0s;
 
       &.nav-links-expanded {
-        height: auto; // Ensures entire field is shown
+        //height: auto; // Ensures entire field is shown
+        display: block;
       }
 
       .nav-item-not-collapsible { // Hide any items that we do not want to collapse
@@ -248,11 +252,15 @@ $grid-breakpoints: (
       width: 100%;
       border: none;
       padding: 0;
-      margin: $baseline $baseline 0;
+      margin: $baseline*0.75 $baseline 0;
+      color: $blue;
       border: none;
+      text-decoration: none;
+      background-color: transparent;
+      font-weight: normal;
 
       &:hover {
-        color: $gray-300;
+        color: $gray-600;
       }
 
       a {
@@ -285,11 +293,11 @@ $grid-breakpoints: (
 
     // Display the menu icon and allow for transition to an X on click
     .hamburger-menu {
-      position: fixed;
-      top: 15px;
+      position: absolute;
+      top: 20px;
       right: 20px;
       width: 30px;
-      height: 30px;
+      height: 20px;
       -webkit-transform: rotate(0deg);
       -moz-transform: rotate(0deg);
       -o-transform: rotate(0deg);

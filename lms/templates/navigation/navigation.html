@@ -53,20 +53,25 @@ site_status_msg = get_site_status_msg(course_id)
 % if True:
   <header class="global-header ${'slim' if course else ''}">
     <%include file="responsive/navbar-logo-header.html" args="online_help_token=online_help_token"/>
+    <div class="hamburger-menu" role="button" tabindex="0"><span></span><span></span><span></span><span></span></div>
     % if user.is_authenticated():
       <%include file="responsive/navbar-authenticated.html" args="online_help_token=online_help_token"/>
     % else:
       <%include file="responsive/navbar-not-authenticated.html" args="online_help_token=online_help_token"/>
     % endif
-    <div class="hamburger-menu"><span></span><span></span><span></span><span></span></div>
   </header>
-
 
 <script>
 // Open the tab on hamburger click
 $('.hamburger-menu').click(function() {
     $('.nav-links').toggleClass('nav-links-expanded');
     $('.hamburger-menu').toggleClass('open');
+})
+
+$(document).on('keydown', function(e) {
+    if (e.keyCode == 13 && $(e.target).hasClass('hamburger-menu')) {
+        $(e.target).click();
+    }
 })
 </script>
 
