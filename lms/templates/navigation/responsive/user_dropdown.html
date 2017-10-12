@@ -29,59 +29,9 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
 </div>
 <div class="nav-item" tabindex="-1">
     <span class="fa fa-caret-down toggle-user-dropdown nav-item-not-collapsible" tabindex="0"></span>
-    <div class="dropdown-menu" tabindex="-1">
+    <div class="dropdown-user-menu" tabindex="-1">
         <a href="${reverse('dashboard')}"><div class="dropdown-item dropdown-nav-item">${_("Dashboard")}</div></a>
         <a href="${reverse('account_settings')}"><div class="dropdown-item dropdown-nav-item">${_("Account")}</div></a>
         <a href="${reverse('logout')}"><div class="dropdown-item dropdown-nav-item">${_("Sign Out")}</div></a>
     </div>
 </div>
-<script>
-    $('.toggle-user-dropdown').click(function() {
-      const $dropdownMenu = $('.global-header .nav-item .dropdown-menu');
-      if ($dropdownMenu.is(':visible')) {
-        $dropdownMenu.hide();
-      } else {
-        $dropdownMenu.show();
-        $dropdownMenu.find('.dropdown-item')[0].focus();
-      }
-    });
-
-    // Ensure click away removes the dropdown
-    $(window).click(function(e) {
-      if (!$(e.target).is('.dropdown-item, .toggle-user-dropdown')){
-        $('.global-header .nav-item .dropdown-menu').hide();
-      }
-    })
-
-    // Accessibility for user dropdown
-    $(document).on('keydown', function(e) {
-        const isToggle =  $(e.target).hasClass('toggle-user-dropdown');
-        const isDropdownOption = $(e.target).children().hasClass('dropdown-item');
-
-        // Open dropdown menu on enter or space click
-        if ((e.keyCode == 13 || e.keyCode == 32) && isToggle) {
-            $(e.target).click();
-            $('.dropdown-item:first').parent().focus();
-        }
-
-        // Enable arrow functionality
-        if ((e.keyCode == 38 || e.keyCode == 40) && (isToggle || isDropdownOption)) {
-            const isNext = e.keyCode == 40;
-            if (isNext && isToggle) {
-               $('.dropdown-item:first').parent().focus();
-            } else if (isNext) {
-                $(e.target).next().focus();
-            } else if (!isNext && !isToggle) {
-               $(e.target).prev().focus();
-            }
-            e.preventDefault(); // Don't let the screen scroll on navigation
-        }
-
-        // Allow escape to clear out of the dropdown
-        if (e.keyCode == 27 && (isDropdownOption || isToggle)) {
-            $('.global-header .nav-item .dropdown-menu').hide();
-            $('.toggle-user-dropdown').focus();
-        }
-    })
-
-</script>

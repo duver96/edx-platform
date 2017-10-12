@@ -14,16 +14,20 @@ $font-family-sans-serif: cursive;
 @import 'edx-bootstrap/sass/open-edx/theme';
 
 // Override the theme to use red as primary
-$theme-colors: ();
+$theme-colors: () !default;
 $theme-colors: map-merge((
   primary: $red,
   secondary: $gray-600,
+  inverse: $white,
   success: $green,
-  info: $cyan,
+  info: $pink,
   warning: $yellow,
   danger: $red,
-  light: $gray-100,
-  dark: $gray-800
+  lightest: $gray-100,
+  light: $gray-200,
+  dark: $gray-800,
+  darker: $gray-900,
+  darkest: $black
 ), $theme-colors);
 
 // Note: for some reason this doesn't obey the primary color as defined above.

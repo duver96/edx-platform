@@ -13,9 +13,7 @@ from django.utils.translation import ugettext as _
   show_explore_courses = settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing
   show_sysadmin_dashboard = settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff
   show_shopping_cart = should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()) # see shoppingcart.context_processor.user_has_cart_context_processor
-  if show_dashboard_tabs:
-      self.real_user = getattr(user, 'real_user', user)
-      is_on_profile_page = data and data.get('profile_user_id') is not None
+  self.real_user = getattr(user, 'real_user', user)
 %>
 
 <div class="nav-links">
@@ -35,7 +33,7 @@ from django.utils.translation import ugettext as _
           </li>
         % endif
         <div class="nav-item nav-tab">
-          <a class="${'active ' if is_on_profile_page else ''}tab-nav-link" href="${reverse('learner_profile', args=[self.real_user.username])}">
+          <a class="${'active ' if '/u/' in request.path  else ''}tab-nav-link" href="${reverse('learner_profile', args=[self.real_user.username])}">
             ${_("Profile")}
           </a>
         </div>

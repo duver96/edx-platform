@@ -16,7 +16,13 @@ from branding import api as branding_api
 # app that handles site status messages
 from status.status import get_site_status_msg
 from openedx.core.djangoapps.lang_pref.api import header_language_selector_is_enabled, released_languages
+
+# Waffle flag to enable and disable the responsive header
+from openedx.core.djangoapps.waffle_utils import WaffleFlag, WaffleFlagNamespace
+RESPONSIVE_HEADER_ENABLED = WaffleFlag(WaffleFlagNamespace(name='lms'), 'responsive_header_enabled')
 %>
+
+<script type="text/javascript" src="${static.url('js/header/header.js')}"></script>
 
 ## Provide a hook for themes to inject branding on top.
 <%block name="navigation_top" />
@@ -50,7 +56,7 @@ site_status_msg = get_site_status_msg(course_id)
 </%block>
 
 
-% if True:
+% if RESPONSIVE_HEADER_ENABLED.is_enabled():
   <header class="global-header ${'slim' if course else ''}">
     <%include file="responsive/navbar-logo-header.html" args="online_help_token=online_help_token"/>
     <div class="hamburger-menu" role="button" tabindex="0"><span></span><span></span><span></span><span></span></div>
@@ -60,23 +66,6 @@ site_status_msg = get_site_status_msg(course_id)
       <%include file="responsive/navbar-not-authenticated.html" args="online_help_token=online_help_token"/>
     % endif
   </header>
-
-<script>
-// Open the tab on hamburger click
-$('.hamburger-menu').click(function() {
-    $('.nav-links').toggleClass('nav-links-expanded');
-    $('.hamburger-menu').toggleClass('open');
-})
-
-$(document).on('keydown', function(e) {
-    if (e.keyCode == 13 && $(e.target).hasClass('hamburger-menu')) {
-        $(e.target).click();
-    }
-})
-</script>
-
-
-
 % elif uses_bootstrap:
   <header class="navigation-container header-global ${'slim' if course else ''}">
     <nav class="navbar navbar-expand-lg">
