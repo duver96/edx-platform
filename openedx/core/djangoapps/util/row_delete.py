@@ -10,18 +10,18 @@ from django.db import transaction
 log = logging.getLogger(__name__)
 
 
-def delete_rows(
-        model_mgr,
-        table_name,
-        chunk_size,
-        sleep_between
-    ):
+def delete_rows(model_mgr,
+                table_name,
+                primary_id_name,
+                chunk_size,
+                sleep_between):
     """
     Deletes *ALL* rows from table, chunking the deletes to avoid long table/row locks.
 
     Args:
         model_mgr (django.db.models.manager.Manager): Django ORM mgr for the table's model.
         table_name (str): Name of table from which to delete all rows.
+        primary_id_name (str): Name of primary ID autoincrement column from table.
         chunk_size (int): Number of rows to delete in each transaction.
         sleep_between (float): Number of seconds to sleep between transactions.
     """
@@ -32,26 +32,27 @@ def delete_rows(
 
     # The "as id" below fools Django raw query into thinking the primary key is being queried.
     min_max_ids = model_mgr.raw(
-        'SELECT MIN(id) as id, MAX(id) as max_id FROM {}'.format(table_name)
+        'SELECT MIN({}) as id, MAX({}) as max_id FROM {}'.format(primary_id_name, primary_id_name, table_name)
     )[0]
     min_id = min_max_ids.id
     max_id = min_max_ids.max_id
     if not min_id or not max_id:
         log.info("No data exists in table %s - skipping.", table_name)
         return
-    log.info("STARTED: Deleting around %s rows with chunk size of %s and %s seconds between chunk.",
-        max_id - min_id, chunk_size, sleep_between
+    log.info(
+        "STARTED: Deleting around %s rows with chunk size of %s and %s seconds between chunks.",
+        max_id - min_id + 1, chunk_size, sleep_between
     )
 
     total_deletions = 0
     lower_id = min_id
-    while lower_id < max_id:
-        deletions_now = min(chunk_size, max_id - lower_id)
+    while lower_id <= max_id:
+        deletions_now = min(chunk_size, max_id - lower_id + 1)
         upper_id = lower_id + deletions_now
-        log.info("Deleting %s rows between ids %s and %s...", deletions_now, lower_id, upper_id)
+        log.info("Deleting around %s rows between ids %s and %s...", deletions_now, lower_id, upper_id)
         with transaction.atomic():
-            delete_sql = 'DELETE FROM {} WHERE id >= {} AND id < {}'.format(
-                table_name, lower_id, upper_id
+            delete_sql = 'DELETE FROM {} WHERE {} >= {} AND {} < {}'.format(
+                table_name, primary_id_name, lower_id, primary_id_name, upper_id
             )
             log.info(delete_sql)
             try:
@@ -82,7 +83,7 @@ class BaseDeletionCommand(BaseCommand):
             '--chunk_size',
             default=self.DEFAULT_CHUNK_SIZE,
             type=int,
-            help='Maximum number of rows to delete in one transaction.'
+            help='Maximum number of rows to delete in each DB transaction. Choose this value carefully to avoid DB outages!'
         )
         parser.add_argument(
             '--sleep_between',

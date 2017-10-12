@@ -4,13 +4,12 @@ credit_historicalcreditrequirementstatus tables.
 """
 
 import logging
-from django.core.management.base import BaseCommand
 from openedx.core.djangoapps.credit.models import CreditRequest, CreditRequirementStatus
-from openedx.core.djangoapps.util.row_delete import delete_rows
+from openedx.core.djangoapps.util.row_delete import delete_rows, BaseDeletionCommand
 log = logging.getLogger(__name__)
 
 
-class Command(BaseCommand):
+class Command(BaseDeletionCommand):
     """
     Example usage: ./manage.py lms --settings=devstack delete_historical_credit_data.py
     """
@@ -24,10 +23,12 @@ class Command(BaseCommand):
         delete_rows(
             CreditRequest.objects,
             'credit_historicalcreditrequest',
+            'history_id',
             chunk_size, sleep_between
         )
         delete_rows(
             CreditRequirementStatus.objects,
             'credit_historicalcreditrequirementstatus',
+            'history_id',
             chunk_size, sleep_between
         )
