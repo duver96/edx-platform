@@ -97,7 +97,7 @@ def get_footer(is_secure=True):
         "copyright": _footer_copyright(),
         "logo_image": _footer_logo_img(is_secure),
         "social_links": _footer_social_links(),
-        "edx_links": _footer_edx_links(),
+        "business_links": _footer_business_links(),
         "mobile_links": _footer_mobile_links(is_secure),
         "more_info_links": _footer_more_info_links(),
         "connect_links": _footer_connect_links(),
@@ -242,7 +242,7 @@ def _footer_legal_links():
     ]
 
 
-def _footer_edx_links():
+def _footer_business_links():
     """Return the edx links to display in the footer. """
     platform_name = configuration_helpers.get_value('platform_name', settings.PLATFORM_NAME)
 
