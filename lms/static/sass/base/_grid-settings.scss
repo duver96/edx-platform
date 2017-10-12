@@ -22,7 +22,3 @@ $edx-bp-small: new-breakpoint(min-width 321px max-width 540px, 4);
 $edx-bp-medium: new-breakpoint(min-width 541px max-width 768px, 8);
 $edx-bp-large: new-breakpoint(min-width $large-min-width 12);
 $edx-bp-huge:  new-breakpoint(min-width 980px 12);
-
-// new breakpoints being used in edx footer design
-
-$edx-footer-bp-large: new-breakpoint(min-width 992px max-width 1179px, 12);

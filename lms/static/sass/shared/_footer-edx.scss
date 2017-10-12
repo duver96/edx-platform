@@ -17,15 +17,10 @@ $edx-footer-bg-color: rgb(252,252,252);
 // CMS styles
 footer#footer-edx-v3 {
   background: $edx-footer-bg-color;
-  padding: 15px 0;
+  padding: $baseline*0.75 0;
   border-top: 1px solid $courseware-button-border-color;
-  font-family: "Open Sans" ;
 
-  div > div > div:nth-child(2) > div.col-lg-2.edx-col-md-2.col-md-3.col-sm-3 > ul {
-    border: none;
-  }
-
-  .col-lg-10.col-md-12.col-sm-9.col-xs-12 div.row {
+  .main-row {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -33,69 +28,66 @@ footer#footer-edx-v3 {
     flex-wrap: wrap;
 
   }
-  div.row.all-screens .col-lg-10.col-md-12.col-sm-9.col-xs-12 div.row div{
+  .flex-column {
     flex-direction: column;
   }
-  .list-unstyled.clear-margins{
-    height: 100%;
-  }
-  div.row.all-screens .col-lg-10.col-md-12.col-sm-9.col-xs-12 div.row div div.row{
-    height: 100%;
-  }
-  div.row.all-screens .col-lg-10.col-md-12.col-sm-9.col-xs-12 div.row div div.row div {
-    height: 100%;
-  }
-  //div.row.all-screens .col-lg-10.col-md-12.col-sm-9.col-xs-12 div.row div div.row div ul {
-  //  height: 100%;
-  //}
 
-  div > div.row.all-screens > div.col-lg-10.col-md-12.col-sm-9.col-xs-12 > div > div.col-md-4.col-sm-9.col-xs-12{
+  a.social-links.external:hover {
+    text-decoration: none;
+  }
+
+  .full-height {
+    height: 100%;
+  }
+
+  .social-app-links-div {
     float: none;
     display: table-cell;
     vertical-align: top;
   }
 
-
-  div.container{
+  div.container {
     min-width: 0;
-    @include padding(0, 15px, 0, 15px)
+    padding: 0 $baseline*0.75;
+
   }
-  .row.small-screen{
+
+  .row.small-screen {
     display: none;
   }
-  .row.all-screens{
+
+  .row.all-screens {
     display: block;
   }
-  ul li h3{
-    font-size: 16px ;
+
+  ul li h3 {
     font-weight: 600;
-    padding:5px 0; 
-    color: #646464;
+    padding:$baseline*0.25 0;
+    color: $lighter-base-font-color;
   }
+
   .widget_nav_menu ul {
     list-style: outside none none;
     padding-left: 0;
-    margin-bottom: 15px;
+    margin-bottom: $baseline*0.75;
   }
-
-
 
   .footer-language-selector {
     @include float(right);
   }
 
   .app-links {
-    margin-top: 15px ;
+    margin-top: $baseline*0.75;
     height: auto;
   }
 
   .clear-margins {
-    margin-top: 15px;
-    border-bottom: 1px solid #e6e6e6;
+    margin-top: $baseline*0.75;
+    border-bottom: 1px solid $courseware-button-border-color;
   }
 
   .social {
-    margin-top: 30px;
+    margin-top: $baseline*1.50;
     height:auto;
   }
 
@@ -107,6 +99,7 @@ footer#footer-edx-v3 {
   .edx-footer-logo {
     display: inline-block;
   }
+
   // To match the Pattern Library
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -128,13 +121,12 @@ footer#footer-edx-v3 {
     @include line-height(24);
   }
 
-
   .site-nav,
   .legal-notices {
     li {
       @include font-size(14);
       @include line-height(14);
-      @include margin-right(20px);
+      @include margin-right($baseline);
       color: $edx-footer-link-color;
 
       &:last-of-type {
@@ -232,7 +224,8 @@ footer#footer-edx-v3 {
       border: none;
     }
   }
-    a.social-links {
+
+  a.social-links {
     @include margin(0, -7px, 10px, 0px);
     @include font-size(45);
     @include line-height(28);
@@ -288,36 +281,37 @@ footer#footer-edx-v3 {
       @include float(right);
     }
   }
+
   @include media-breakpoint-up(sm) {
-    padding: 20px 10px;
-    .row.small-screen{
+    padding: $baseline $baseline*0.50;
+    .row.small-screen {
       display: block;
     }
 
-    div.container{
+    div.container {
       min-width: 0;
       padding: 0;
     }
 
-    .row.all-screens{
+    .row.all-screens {
       display: none;
     }
 
-    .row.small-screen .edx-footer-logo{
-          padding-left: 20px;
+    .row.small-screen .edx-footer-logo {
+          @include padding-left($baseline);
     }
 
 
-    div > div.row.small-screen > div:nth-child(2) > div:nth-child(2){
-      @include border-left( 1px solid #e6e6e6);
+    div > div.row.small-screen > div:nth-child(2) > div:nth-child(2) {
+      @include border-left( 1px solid $courseware-button-border-color);
     }
-    div.col-xs-6 .col-xs-12{
-      border-bottom: 1px solid #e6e6e6;
+    div.col-xs-6 .col-xs-12 {
+      border-bottom: 1px solid $courseware-button-border-color;
     }
-    div > div.row.small-screen > div:nth-child(2) > div:nth-child(1) > div:nth-child(3){
+    div > div.row.small-screen > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) {
       border: none;
     }
-    div > div.row.small-screen > div:nth-child(2) > div:nth-child(2) > div{
+    div > div.row.small-screen > div:nth-child(2) > div:nth-child(2) > div {
       border-bottom: none;
     }
 
@@ -351,10 +345,8 @@ footer#footer-edx-v3 {
     a.social-links {
       @include font-size(50);
       margin-top: 5px;
-      @include margin-left(5px);
+      @include margin-left($baseline*.25);
     }
-
-
 
     .social {
       display: inline-block;
@@ -368,26 +360,26 @@ footer#footer-edx-v3 {
     }
 
     ul.social li {
-        display: inline;
-        width: 0;
+      display: inline;
+      width: 0;
     }
-
 
   }
 
   @include media-breakpoint-up(md) {
 
+    .row.small-screen {
+      display: none;
+    }
 
-    .row.small-screen{
-    display: none;
-  }
-    .row.all-screens{
+    .row.all-screens {
       display: block;
     }
     .col-lg-2.col-md-12.col-sm-3.col-xs-10 {
       text-align: center;
     }
-    padding: 20px 10px;
+
+    padding: $baseline $baseline*0.50;
 
     .site-details {
       @include span-columns(8);
@@ -408,7 +400,6 @@ footer#footer-edx-v3 {
 
     ul.clear-margins {
       margin-top: 15px;
-      //border-right: 1px solid #e6e6e6;
       border-bottom: none;
     }
 
@@ -421,20 +412,21 @@ footer#footer-edx-v3 {
     }
 
     .col-lg-10 div.row div:nth-child(2) div.row:nth-child(1) {
-      @include border-left(1px solid #e6e6e6);
+      @include border-left(1px solid $courseware-button-border-color);
     }
     .col-lg-10 div.row div:nth-child(3) div.row:nth-child(1) {
-      @include border-left(1px solid #e6e6e6);
+      @include border-left(1px solid $courseware-button-border-color);
     }
+
     .social {
       display: inline-block;
       vertical-align:middle;
-      margin-top: 30px;
+      margin-top: $baseline*1.50;
     }
 
     .app-links {
       display: inline-block;
-      @include margin-left(5px);
+      @include margin-left($baseline*0.25);
       vertical-align:middle;
 
     }
@@ -444,9 +436,7 @@ footer#footer-edx-v3 {
     }
 
     ul li h3 {
-      @include font-size(16);
       font-weight: 700;
-
     }
 
     .footer-language-selector {
@@ -460,7 +450,8 @@ footer#footer-edx-v3 {
   }
 
   @include media-breakpoint-up(lg) {
-    padding: 20px 10px;
+    padding: $baseline $baseline*0.50;
+
     .row.small-screen {
         display: none;
     }
@@ -469,18 +460,18 @@ footer#footer-edx-v3 {
       display: block;
     }
     .edx-footer-logo{
-      @include margin-left(35px);
+      @include margin-left($baseline*1.75);
     }
     .col-lg-10 div.row div div.row {
-      @include border-left( 1px solid #e6e6e6);
+      @include border-left(1px solid $courseware-button-border-color);
     }
 
     .col-lg-10 div.row div:nth-child(1) div.row:nth-child(1) {
-      padding-left: 35px;
+      @include padding-left($baseline*1.75);
     }
 
     .col-lg-2.col-md-12.col-sm-3.col-xs-10 {
-    text-align: left;
+      text-align: left;
     }
 
     .site-details {
@@ -502,27 +493,22 @@ footer#footer-edx-v3 {
 
 
     ul.clear-margins {
-      margin-top: 15px;
+      margin-top: $baseline*0.75;
       border-bottom: none;
-    }
-
-    div.row div.edx-col-md-3:nth-child(1) {
-      @include padding(0px, 0px, 0px, 15px);
-      text-align: justify;
     }
 
     .app-link img {
        height: 40px;
     }
 
-    a.social-links{
+    a.social-links {
       @include font-size(40);
     }
 
     .social {
       display: inline-block;
       vertical-align:middle;
-      margin-top: 20px;
+      margin-top: $baseline;
     }
 
     .app-links {
@@ -533,13 +519,12 @@ footer#footer-edx-v3 {
 
     .widget_nav_menu ul li {
       @include font-size(16);
-      padding-bottom: 5px;
+      padding-bottom: $baseline*0.25;
     }
 
     ul li h3 {
-      @include font-size(16);
       font-weight: 700;
-      padding-bottom: 10px;
+      padding-bottom: $baseline*0.50;
 
     }
 
@@ -571,27 +556,22 @@ footer#footer-edx-v3 {
 
     }
 
-    .edx-footer-logo{
+    .edx-footer-logo {
       @include margin-left(0);
     }
 
     .social-media-links {
-      margin-bottom: 50px;
+      margin-bottom: $baseline*2.50;
     }
 
     ul.social li {
       display: inline;
     }
 
-    div.row div.edx-col-xs-12 div.col-md-3:nth-child(1) {
-      text-align: center;
-      margin-top:20px;
-    }
-
 
     .col-lg-10 div.row div div.row {
       height: 100%;
-      @include border-left( 1px solid #e6e6e6);
+      @include border-left( 1px solid $courseware-button-border-color);
     }
 
     .clear-margins {
@@ -599,13 +579,11 @@ footer#footer-edx-v3 {
     }
 
     .col-lg-10 div.row div:nth-child(1) div.row:nth-child(1) {
-
       padding: 0;
-
     }
 
     .footer-language-selector {
-      @include margin(20px, 20px, 0, 0);
+      margin: 20px 0;
       float: none;
     }
 
