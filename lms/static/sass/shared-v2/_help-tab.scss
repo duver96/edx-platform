@@ -1,3 +1,11 @@
+#help-modal {
+  width: 90% !important;
+
+  @media (min-width: $grid-breakpoints-md) {
+    width: 700px !important;
+  }
+}
+
 .help-tab {
   @include transform(rotate(-90deg));
   @include transform-origin(0 0);
@@ -29,8 +37,6 @@
 }
 
 .help-buttons {
-  padding: ($baseline/2) ($baseline*2.5);
-
   a:link,
   a:visited {
     padding: ($baseline*0.75) 0;
