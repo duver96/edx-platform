@@ -13,7 +13,6 @@ from django.utils.translation import ugettext as _
   courses_are_browsable = settings.FEATURES.get('COURSES_ARE_BROWSABLE')
   show_explore_courses = settings.FEATURES.get('COURSES_ARE_BROWSABLE') and not show_program_listing
   show_sysadmin_dashboard = settings.FEATURES.get('ENABLE_SYSADMIN_DASHBOARD','') and user.is_staff
-  show_shopping_cart = should_display_shopping_cart_func() # see shoppingcart.context_processor.user_has_cart_context_processor
   self.real_user = getattr(user, 'real_user', user)
 %>
 
@@ -39,11 +38,11 @@ from django.utils.translation import ugettext as _
             </a>
           </div>
           % if show_program_listing:
-            <li class="nav-item nav-tab">
+            <div class="nav-item nav-tab">
               <a class="${'active ' if reverse('program_listing_view') in request.path else ''}tab-nav-link" href="${reverse('program_listing_view')}">
                 ${_("Programs")}
               </a>
-            </li>
+            </div>
           % endif
           <div class="nav-item nav-tab">
             <a class="${'active ' if '/u/' in request.path  else ''}tab-nav-link" href="${reverse('learner_profile', args=[self.real_user.username])}">
@@ -55,7 +54,7 @@ from django.utils.translation import ugettext as _
 
     </div>
     <div class="secondary">
-      % if show_shopping_cart:
+      % if should_display_shopping_cart_func() and not (course and static.is_request_in_themed_site()): # see shoppingcart.context_processor.user_has_cart_context_processor
         <div class="nav-item">
           <a class="shopping-cart" href="${reverse('shoppingcart.views.show_cart')}">
             <span class="icon fa fa-shopping-cart" aria-hidden="true"></span> ${_("Shopping Cart")}
