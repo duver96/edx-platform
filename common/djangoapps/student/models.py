@@ -1186,10 +1186,11 @@ class CourseEnrollment(models.Model):
                           u"offering:{}".format(self.course_id.offering),
                           u"mode:{}".format(self.mode)]
                 )
-        if mode_changed:
+        if not mode_changed:
             # Only emit mode change events when the user's enrollment
             # mode has changed from its previous setting
             self.emit_event(EVENT_NAME_ENROLLMENT_MODE_CHANGED)
+            log.info('---------------->>> sending signal')
             ENROLLMENT_TRACK_UPDATED.send(sender=None, user=self.user, course_key=self.course_id)
 
     def send_signal(self, event, cost=None, currency=None):
