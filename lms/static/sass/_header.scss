@@ -217,7 +217,6 @@
       transition: height 2.0s;
 
       &.nav-links-expanded {
-        //height: auto; // Ensures entire field is shown
         display: block;
       }
 
@@ -274,8 +273,8 @@
     // Display the menu icon and allow for transition to an X on click
     .hamburger-menu {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 22px;
+      right: 22px;
       width: 30px;
       height: 20px;
       -webkit-transform: rotate(0deg);
@@ -298,7 +297,7 @@
       span {
         display: block;
         position: absolute;
-        height: 3px;
+        height: 2px;
         width: 100%;
         background: theme-color("secondary");
         border-radius: 9px;
@@ -318,11 +317,11 @@
         }
 
         &:nth-child(2), &:nth-child(3) {
-          top: 7px;
+          top: 6px;
         }
 
         &:nth-child(4) {
-          top: 14px;
+          top: 12px;
         }
       }
 
