@@ -1,7 +1,6 @@
 """
 Classes that override default django-oauth-toolkit behavior
 """
-import logging
 from __future__ import unicode_literals
 
 from datetime import datetime
@@ -12,6 +11,7 @@ from django.dispatch import receiver
 from oauth2_provider.models import AccessToken
 from oauth2_provider.oauth2_validators import OAuth2Validator
 from pytz import utc
+import logging
 
 from .models import RestrictedApplication
 log = logging.getLogger(__name__)
