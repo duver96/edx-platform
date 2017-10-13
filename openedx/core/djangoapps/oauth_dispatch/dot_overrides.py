@@ -1,6 +1,7 @@
 """
 Classes that override default django-oauth-toolkit behavior
 """
+import logging
 from __future__ import unicode_literals
 
 from datetime import datetime
@@ -13,6 +14,7 @@ from oauth2_provider.oauth2_validators import OAuth2Validator
 from pytz import utc
 
 from .models import RestrictedApplication
+log = logging.getLogger(__name__)
 
 
 @receiver(pre_save, sender=AccessToken)
@@ -72,7 +74,7 @@ class EdxOAuth2Validator(OAuth2Validator):
         """
         grant_type = request.grant_type
         user = request.user
-
+        log.info('Starting refresh token and access token revocation and creation process for user[%d].', user)
         if grant_type == 'client_credentials':
             # Temporarily remove the grant type to avoid triggering the super method's code that removes request.user.
             request.grant_type = None
@@ -99,7 +101,10 @@ class EdxOAuth2Validator(OAuth2Validator):
             assert expires_in < 0
 
             token['expires_in'] = expires_in
-
+        log.info(
+            'Successfully finished refresh token and access token revocation and creation process for user[%d].',
+            user
+        )
         # Restore the original request attributes
         request.grant_type = grant_type
         request.user = user
