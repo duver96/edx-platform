@@ -28,7 +28,7 @@ from openedx.core.djangoapps.user_api.accounts.image_helpers import get_profile_
     </a>
 </div>
 <div class="nav-item" tabindex="-1">
-    <span class="fa fa-caret-down toggle-user-dropdown nav-item-not-collapsible" tabindex="0"></span>
+    <span class="fa fa-caret-down toggle-user-dropdown nav-item-not-collapsible" aria-hidden="true" tabindex="0"></span>
     <div class="dropdown-user-menu" tabindex="-1">
         <a href="${reverse('dashboard')}"><div class="dropdown-item dropdown-nav-item">${_("Dashboard")}</div></a>
         <a href="${reverse('account_settings')}"><div class="dropdown-item dropdown-nav-item">${_("Account")}</div></a>

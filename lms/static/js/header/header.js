@@ -32,6 +32,7 @@ $(document).ready(function() {
 
 // Ensure click away hides the dropdown
 $(window).click(function(e) {
+    'use strict';
     if (!$(e.target).is('.dropdown-item, .toggle-user-dropdown')) {
         $('.global-header .nav-item .dropdown-user-menu').hide();
     }
